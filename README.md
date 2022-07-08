@@ -12,9 +12,9 @@ this project satisfied an itch I had while running various domains on AWS and se
    3a. see namecheap instructions <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/319/2237/how-can-i-set-up-an-a-address-record-for-my-domain/" target="_blank" rel="noopener">how to set up an A (address) record for my domain</a>
 
    3b. refer this screenshot of namecheap configuration <img src="namecheap_dns_config_screenshot.png" alt="name cheap dns settings example" width="250" height="300">
-3. follow the instructions on <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/29/11/how-to-dynamically-update-the-hosts-ip-with-an-http-request/" target="_blank" rel="noopener">namecheap</a>
+3. read the instructions on <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/29/11/how-to-dynamically-update-the-hosts-ip-with-an-http-request/" target="_blank" rel="noopener">namecheap</a> to understand the code and configuration required.
 4. create csv file containing a row for each combination of subdomain domain prefix &  domain. <br>
-NB: the password required is the 'Dynamic DNS Password' is same for each domain, row required for each subdomain.
+NB: the password required is the 'Dynamic DNS Password' is same for each domain, row required for each subdomain. see the screenshot above to find the 'Dynamic DNS Password' within the namecheap 'Advanced DNS' configuration page.
 
 ### Build
 
