@@ -31,7 +31,7 @@ NB: the password required is the 'Dynamic DNS Password' is same for each domain,
 python3 update_namecheap_ip.py
 ```
 4. use the troubleshooting/text options within the script (see comments in code).
-5. configure as a service to run on your *nix machine. edit 'update_namecheap_ip.service'
+5. configure as a service to run on your *nix machine. edit this file > 'update_namecheap_ip.service' and 
 <a href="https://medium.com/codex/setup-a-python-script-as-a-service-through-systemctl-systemd-f0cc55a42267" target="_blank" rel="noopener">follow these excellent instructions</a>.<br>
 NB : don't forget to enable the service to start during boot and test thoroughly.
 
