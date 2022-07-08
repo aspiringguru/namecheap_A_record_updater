@@ -1,0 +1,9 @@
+[Unit]
+Description=auto update namecheap dns records
+After=multi-user.target
+[Service]
+Type=simple
+Restart=always
+ExecStart=/<your-path>/namecheap_script_ip_update_env/bin/python /<your-path>/update_namecheap_ip.py
+[Install]
+WantedBy=multi-user.target

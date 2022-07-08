@@ -1,0 +1,4 @@
+domain_prefix,domain,password
+@,blah.com,Dynamic_DNS_Password_from_namecheap
+www,blah.com,Dynamic_DNS_Password_from_namecheap
+1,blah.com,Dynamic_DNS_Password_from_namecheap
