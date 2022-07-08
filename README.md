@@ -1,17 +1,8 @@
 # Namecheap DNS updater
 
-<p align="center">
-  <a href="#development">Development</a> •
-  <a href="#architecture--documentation">Documentation</a> •
-  <a href="#how-to-contribute">Contribute</a> •
-  <a href="#support--feedback">Support</a>
-</p>
-
 Python script to detect when when your server ip changes and automate updating namecheap A records.
 
----
-
-## Development
+this project satisfied an itch I had while running various domains on AWS and servers operating at home. While AWS provides services that can do this better, the ability to avoid a paid service and demonstrate a mix of system admin and coding skills seemed a good reason for a mini project.
 
 ### Setup
 
@@ -57,3 +48,11 @@ See comments in code.
 ## Support & Feedback
 
 <a href="https://buymeacoffee.com/J6AYa7D" target="_blank" rel="noopener">Buy me a coffee</a>
+
+## future upgrades
+
+add error trapping.
+improve error logging.
+automated alerts to domain owners / admin if/when namecheap cannot be updated.
+add tracking/testing for domain pageloads & alerts.
+audit this project against existing services
