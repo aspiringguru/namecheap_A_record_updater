@@ -24,7 +24,7 @@ NB: the password required is the 'Dynamic DNS Password' is same for each domain,
 
 ### Run
 
-1. cd <installed diretory>
+1. cd /your/installed/diretory/
 2. source namecheap_script_ip_update_env/bin/activate
 3. Run code
 ```
