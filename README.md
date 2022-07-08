@@ -51,8 +51,8 @@ See comments in code.
 
 ## future upgrades
 
-add error trapping.
-improve error logging.
-automated alerts to domain owners / admin if/when namecheap cannot be updated.
-add tracking/testing for domain pageloads & alerts.
-audit this project against existing services
+add error trapping.<br>
+improve error logging.<br>
+automated alerts to domain owners / admin if/when namecheap cannot be updated.<br>
+add tracking/testing for domain pageloads & alerts.<br>
+audit this project against existing services.<br>
