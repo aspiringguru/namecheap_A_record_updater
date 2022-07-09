@@ -60,9 +60,9 @@ also: check the code contains the full path to the directory your 'config_urls.c
 
 ## How to Contribute
 
-raise an issue in the git issues tab with detailed description of issue.
-add comments to existing issues.
-create pull requests.
+raise an issue in the git issues tab with detailed description of issue.  
+add comments to existing issues.  
+create pull requests.  
 
 #### How to run tests
 See comments in code.
