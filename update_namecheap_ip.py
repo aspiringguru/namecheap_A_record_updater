@@ -7,8 +7,8 @@ from datetime import datetime
 import pandas as pd
 import os.path
 
+#nb: edit this path to suit your system.
 #path_to_file = "/home/ubuntu/f_projs/"
-path_to_file = "/mnt/d/2020/coding/namecheap_script_ip_update/"
 output_file = "namecheap_updates.txt"
 url_update_base = "https://dynamicdns.park-your-domain.com/update?"
 no_change_sleep=30

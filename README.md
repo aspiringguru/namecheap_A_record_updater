@@ -31,10 +31,32 @@ NB: the password required is the 'Dynamic DNS Password' is same for each domain,
 python3 update_namecheap_ip.py
 ```
 4. use the troubleshooting/text options within the script (see comments in code).
-5. configure as a service to run on your *nix machine. edit this file > 'update_namecheap_ip.service' and 
+5. configure as a service to run on your *nix machine. edit this file > 'update_namecheap_ip.service' and
 <a href="https://medium.com/codex/setup-a-python-script-as-a-service-through-systemctl-systemd-f0cc55a42267" target="_blank" rel="noopener">follow these excellent instructions</a>.<br>
 NB : don't forget to enable the service to start during boot and test thoroughly.
 
+### debugging
+
+adding a few notes for debugging the configuration as a service options since this gave me trouble.
+
+Most user guides on setting up a service show how/when to use this commands.
+sudo systemctl daemon-reload                          : when any service file is edited.
+sudo systemctl enable update_namecheap_ip.service     : to set a service to start on system startup (creates symlink first time)
+sudo systemctl start update_namecheap_ip.service      : start after boot
+sudo systemctl status update_namecheap_ip.service     : check status after starting service.
+sudo systemctl restart update_namecheap_ip.service
+
+Less commonly taught are these two useful systemctl commands
+sudo systemctl is-active update_namecheap_ip.service  : checks if start worked or servicce failed since start.
+sudo systemctl is-enabled update_namecheap_ip.service : check if service is actually enabled.
+
+similarly most tutorials show how to view the logs for a service.
+sudo journalctl -u [service_name]
+
+Less commonly taught in tutorials is how to view the end of the log to see the most recent log entries.
+sudo journalctl -u update_namecheap_ip -e
+
+also: check the code contains the full path to the directory your 'config_urls.csv' file is in and where you want the output log  'namecheap_updates.txt' written to. 
 
 ## How to Contribute
 
