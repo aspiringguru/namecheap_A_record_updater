@@ -40,23 +40,23 @@ NB : don't forget to enable the service to start during boot and test thoroughly
 adding a few notes for debugging the configuration as a service options since this gave me trouble.
 
 Most user guides on setting up a service show how/when to use this commands.
-sudo systemctl daemon-reload                          : when any service file is edited.
-sudo systemctl enable update_namecheap_ip.service     : to set a service to start on system startup (creates symlink first time)
-sudo systemctl start update_namecheap_ip.service      : start after boot
-sudo systemctl status update_namecheap_ip.service     : check status after starting service.
-sudo systemctl restart update_namecheap_ip.service
+sudo systemctl daemon-reload                          : when any service file is edited.  
+sudo systemctl enable update_namecheap_ip.service     : to set a service to start on system startup (creates symlink first time)  
+sudo systemctl start update_namecheap_ip.service      : start after boot  
+sudo systemctl status update_namecheap_ip.service     : check status after starting service.  
+sudo systemctl restart update_namecheap_ip.service  
 
-Less commonly taught are these two useful systemctl commands
-sudo systemctl is-active update_namecheap_ip.service  : checks if start worked or servicce failed since start.
-sudo systemctl is-enabled update_namecheap_ip.service : check if service is actually enabled.
+Less commonly taught are these two useful systemctl commands  
+sudo systemctl is-active update_namecheap_ip.service  : checks if start worked or servicce failed since start.  
+sudo systemctl is-enabled update_namecheap_ip.service : check if service is actually enabled.  
 
-similarly most tutorials show how to view the logs for a service.
-sudo journalctl -u [service_name]
+similarly most tutorials show how to view the logs for a service.  
+sudo journalctl -u [service_name]  
 
-Less commonly taught in tutorials is how to view the end of the log to see the most recent log entries.
-sudo journalctl -u update_namecheap_ip -e
+Less commonly taught in tutorials is how to view the end of the log to see the most recent log entries.  
+sudo journalctl -u update_namecheap_ip -e  
 
-also: check the code contains the full path to the directory your 'config_urls.csv' file is in and where you want the output log  'namecheap_updates.txt' written to. 
+also: check the code contains the full path to the directory your 'config_urls.csv' file is in and where you want the output log    'namecheap_updates.txt' written to.   
 
 ## How to Contribute
 
