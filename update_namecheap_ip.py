@@ -7,13 +7,14 @@ from datetime import datetime
 import pandas as pd
 import os.path
 
-#nb: edit this path to suit your system.
-#path_to_file = "/home/ubuntu/f_projs/"
+path_to_file = "/home/m/f_projs/namecheap_ip_update/"  #nb: check this on installed site.
+#path_to_file = os.getcwd()+"/"  #use this for local dev.
 output_file = "namecheap_updates.txt"
+output_file_no_change = "namecheap_updates_no_change.txt"
 url_update_base = "https://dynamicdns.park-your-domain.com/update?"
 no_change_sleep=30
 config_file = "config_urls.csv"
-df_config = pd.read_csv(config_file)
+df_config = pd.read_csv(path_to_file+config_file)
 #https://dynamicdns.park-your-domain.com/update?host=[host]&domain=[domain_name]&password=[ddns_password]&ip=[your_ip]
 
 #test if output file exists, if not - create.
@@ -36,6 +37,7 @@ def get():
 #old_public_ip = get()
 #use this to force update first time this is run.
 old_public_ip = "0.0.0.0"
+#new_public_ip= "1.1.1.1"
 #print("old_public_ip:", old_public_ip)
 
 
@@ -63,11 +65,14 @@ while True:
     #print("new_public_ip:", new_public_ip)
     #if new_public_ip == old_public_ip: do nothing, sleep.
     if new_public_ip == old_public_ip:
-        #print("no change, sleep. "+ str(datetime.now()))
+        print("update_namecheap_ip.py : no change, sleep. "+ str(datetime.now()))
+        df_update_no_change = pd.DataFrame([new_public_ip, old_public_ip, str(datetime.now())] ).T
+        df_update_no_change.columns = ["new_public_ip", "old_public_ip", "datetime"]
+        df_update_no_change.to_csv(path_to_file+output_file_no_change, mode='a', index=False, header=False)
         #print("no change in ip, sleeping...")
         time.sleep(no_change_sleep)
     else:
-        #print("public ip changed, update namecheap records.")
+        print("update_namecheap_ip.py public ip changed, update namecheap records.")
         #new_public_ip != old_public_ip
         #
         #print("change in ip detected, updating namecheap.")
