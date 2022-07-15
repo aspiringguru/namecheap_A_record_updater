@@ -26,14 +26,16 @@ NB: the password required is the 'Dynamic DNS Password' is same for each domain,
 
 1. cd /your/installed/diretory/
 2. source namecheap_script_ip_update_env/bin/activate
-3. Run code
+3. obtain api key for ipinfo.io, free tier allows up to 50k calls/month which allows 60s intervals between calls. adjust value of no_change_sleep to suit your subscription level.
+4. Run code
 ```
 python3 update_namecheap_ip.py
 ```
-4. use the troubleshooting/text options within the script (see comments in code).
-5. configure as a service to run on your *nix machine. edit this file > 'update_namecheap_ip.service' and
+5. use the troubleshooting/text options within the script (see comments in code).
+6. configure as a service to run on your *nix machine. edit this file > 'update_namecheap_ip.service' and
 <a href="https://medium.com/codex/setup-a-python-script-as-a-service-through-systemctl-systemd-f0cc55a42267" target="_blank" rel="noopener">follow these excellent instructions</a>.<br>
 NB : don't forget to enable the service to start during boot and test thoroughly.
+
 
 ### debugging
 
