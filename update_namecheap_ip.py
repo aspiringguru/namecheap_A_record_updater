@@ -6,15 +6,21 @@ import time
 from datetime import datetime
 import pandas as pd
 import os.path
+import ipinfo
+from requests import get
 
 path_to_file = "/home/m/f_projs/namecheap_ip_update/"  #nb: check this on installed site.
 #path_to_file = os.getcwd()+"/"  #use this for local dev.
 output_file = "namecheap_updates.txt"
 output_file_no_change = "namecheap_updates_no_change.txt"
+log_file = "error_log.txt"
 url_update_base = "https://dynamicdns.park-your-domain.com/update?"
 no_change_sleep=30
 config_file = "config_urls.csv"
 df_config = pd.read_csv(path_to_file+config_file)
+ipinfo_token = "<get your own free token>"
+#can make 50k calls/month on free level, approx once/minute.
+handler = ipinfo.getHandler(ipinfo_token)
 #https://dynamicdns.park-your-domain.com/update?host=[host]&domain=[domain_name]&password=[ddns_password]&ip=[your_ip]
 
 #test if output file exists, if not - create.
@@ -24,14 +30,17 @@ if not os.path.exists(path_to_file+output_file):
         pass
 
 def get():
-    endpoint = 'https://ipinfo.io/json'
-    response = requests.get(endpoint, verify = True)
-    if response.status_code != 200:
-        return 'Status:', response.status_code, 'Problem with the request. Exiting.'
-        exit()
-    data = response.json()
-    return data['ip']
+    data = handler.getDetails().all
+    if 'ip' not in data.keys() or type(data['ip']) != str:
+        print("unable to retrieve ip from ipinfo.io api, try api.ipify.org.")
+        public_ip = get('https://api.ipify.org').text
+    else:
+        print("public_ip retrieved from ipinfo.io")
+        public_ip = data['ip']
+    print("public_ip retrieved, public_ip:", public_ip)
+    return public_ip
     #return "1.1.111.1" #used this for testing
+
 
 #get my ip
 #old_public_ip = get()
@@ -80,6 +89,8 @@ while True:
         df_update_results = pd.DataFrame()
         for index, row in df_config.iterrows():
             #print(index, row["domain_prefix"], row["domain"], row["password"])
+            #print("row:", row)
+            #nb: error previously occurred if exceede free threshold usage of ipinfo.io
             url = url_update_base \
                 + "host="      + row["domain_prefix"] \
                 + "&domain="   + row["domain"] \
