@@ -8,18 +8,19 @@ import pandas as pd
 import os.path
 import ipinfo
 from requests import get
+import socket
 
 path_to_file = "/home/m/f_projs/namecheap_ip_update/"  #nb: check this on installed site.
 #path_to_file = os.getcwd()+"/"  #use this for local dev.
 output_file = "namecheap_updates.txt"
 output_file_no_change = "namecheap_updates_no_change.txt"
+output_file_no_internet = "namecheap_updates_no_internet.txt"
 log_file = "error_log.txt"
 url_update_base = "https://dynamicdns.park-your-domain.com/update?"
 no_change_sleep=30
 config_file = "config_urls.csv"
 df_config = pd.read_csv(path_to_file+config_file)
-ipinfo_token = "<get your own free token>"
-#can make 50k calls/month on free level, approx once/minute.
+ipinfo_token = "<get your own free token>"#can make 50k calls/month on free level, approx once/minute.
 handler = ipinfo.getHandler(ipinfo_token)
 #https://dynamicdns.park-your-domain.com/update?host=[host]&domain=[domain_name]&password=[ddns_password]&ip=[your_ip]
 
@@ -29,7 +30,34 @@ if not os.path.exists(path_to_file+output_file):
     with open(path_to_file+output_file, 'w') as fp:
         pass
 
-def get():
+def isConnected():
+    try:
+        # connect to the host -- tells us if the host is actually
+        # reachable
+        sock = socket.create_connection(("api.ipify.org", 80))
+        print("isConnected() : sock:", sock)
+        return True
+    except OSError:
+        # log error
+        print("isConnected() : no internet")
+        df_update_no_internet = pd.DataFrame([old_public_ip, str(datetime.now())] ).T
+        df_update_no_internet.columns = ["old_public_ip", "datetime"]
+        df_update_no_internet.to_csv(path_to_file+output_file_no_internet, mode='a', index=False, header=False)
+        time.sleep(120)
+        return False
+
+'''
+#simple test.
+while not isConnected():
+    print("aaa")
+'''
+
+
+def get_public_ip():
+    while not isConnected():
+        print("get_public_ip:isConnected()=False")
+    public_ip = get('https://api.ipify.org').text
+    """
     data = handler.getDetails().all
     if 'ip' not in data.keys() or type(data['ip']) != str:
         print("unable to retrieve ip from ipinfo.io api, try api.ipify.org.")
@@ -38,12 +66,13 @@ def get():
         print("public_ip retrieved from ipinfo.io")
         public_ip = data['ip']
     print("public_ip retrieved, public_ip:", public_ip)
+    """
     return public_ip
     #return "1.1.111.1" #used this for testing
 
 
 #get my ip
-#old_public_ip = get()
+#old_public_ip = get_public_ip()
 #use this to force update first time this is run.
 old_public_ip = "0.0.0.0"
 #new_public_ip= "1.1.1.1"
@@ -70,7 +99,7 @@ def update_ip(url):
 
 while True:
     #get public ip
-    new_public_ip = get()
+    new_public_ip = get_public_ip()
     #print("new_public_ip:", new_public_ip)
     #if new_public_ip == old_public_ip: do nothing, sleep.
     if new_public_ip == old_public_ip:
